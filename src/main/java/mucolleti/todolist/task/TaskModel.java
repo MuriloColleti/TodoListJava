@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
+import mucolleti.todolist.user.UserModel;
 
 /*
   * Principais
@@ -29,7 +30,7 @@ public class TaskModel {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    private UUID idUser;
+    private UUID id;
 
     private String description;
     @Column(length = 50)
@@ -38,6 +39,9 @@ public class TaskModel {
     private LocalDateTime endAt;
     @Column(length = 10)
     private String priority;
+
+    @Id
+    private UserModel idUser;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
