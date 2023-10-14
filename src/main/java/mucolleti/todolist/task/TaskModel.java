@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 /*
@@ -36,6 +36,8 @@ public class TaskModel {
     private String title;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
+    @Column(length = 10)
+    private String priority;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

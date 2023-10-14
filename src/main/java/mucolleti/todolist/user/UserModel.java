@@ -24,6 +24,7 @@ public class UserModel {
     String name;
     String password;
 
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
