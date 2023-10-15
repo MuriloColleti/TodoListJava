@@ -55,18 +55,26 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody TaskModel taskModel, HttpServletRequest request,@PathVariable UUID id){
+    public ResponseEntity update(@RequestBody TaskModel taskModel, HttpServletRequest request,@PathVariable UUID id){
 
-        var idUser = request.getAttribute("idUser");
+         var task = this.taskRepository.findById(id).orElse(null);
+         var idUser = request.getAttribute("idUser");
 
-        var task = this.taskRepository.findById(id).orElse(null);
+        if(task == null){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("tarefa não existe");
+        }
+
+        if(!task.getIdUser().equals(idUser)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario não autorizado para atualização");
+        }
 
         Utils.copyNonNullProperties(taskModel, task);
-
-        taskModel.setIdUser((UUID)idUser);
-        taskModel.setId(id);
-        this.taskRepository.save(task);
+        var TaskUpdated = this.taskRepository.save(task);
+        
+        return ResponseEntity.ok().body(this.taskRepository.save(TaskUpdated));
     }
+
+
 
 
     
